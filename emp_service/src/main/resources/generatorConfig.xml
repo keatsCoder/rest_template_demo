@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--  <properties resource="mybatis.properties" /> -->
+    <!--<classPathEntry location="该jar包的位置\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar"/>-->
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 生成mysql带有分页的sql的插件  这个可以自己写，-->
+        <plugin type="cn.keats.util.MysqlPaginationPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 自定义的注释规则，继承 DefaultCommentGenerator 重写 一些方法 -->
+        <commentGenerator type="cn.keats.util.NewbatisGenerator">
+            <!-- 是否去除自动生成日期的注释 true：是 ： false:否 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除所有自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection connectionURL="jdbc:mysql://192.168.25.128:3306/mysql?serverTimezone=GMT%2B8"
+                        driverClass="com.mysql.jdbc.Driver" password="521" userId="keats">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <!--生成entity类存放位置-->
+        <javaModelGenerator targetPackage="entity" targetProject="emp_service\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <!-- 从数据库返回的值被清理前后的空格  -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="emp_service\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mapper" targetProject="emp_service\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 数据库表 -->
+        <table tableName="emp" domainObjectName="Emp"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+</generatorConfiguration>

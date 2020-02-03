@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.keats.mapper.EmpMapper">
+  <resultMap id="BaseResultMap" type="cn.keats.entity.Emp">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="join_time" jdbcType="TIMESTAMP" property="joinTime" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="education_background" jdbcType="VARCHAR" property="educationBackground" />
+    <result column="age" jdbcType="TINYINT" property="age" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, join_time, sex, address, education_background, age, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from emp
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.keats.entity.Emp">
+    insert into emp (id, name, join_time,
+      sex, address, education_background, 
+      age, remark)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{joinTime,jdbcType=TIMESTAMP},
+      #{sex,jdbcType=TINYINT}, #{address,jdbcType=VARCHAR}, #{educationBackground,jdbcType=VARCHAR}, 
+      #{age,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.keats.entity.Emp">
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="educationBackground != null">
+        education_background,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="educationBackground != null">
+        #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.keats.entity.Emp">
+    update emp
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="educationBackground != null">
+        education_background = #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.keats.entity.Emp">
+    update emp
+    set name = #{name,jdbcType=VARCHAR},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      sex = #{sex,jdbcType=TINYINT},
+      address = #{address,jdbcType=VARCHAR},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
+      age = #{age,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
